@@ -85,6 +85,14 @@ if ( !defined( 'W3TC' ) )
                 </th>
             </tr>
             <tr>
+                <th colspan="2">
+                    <label><input id="browsercache_querystring" type="checkbox"
+                        <?php Util_Ui::sealing_disabled( 'browsercache.' ) ?>
+                        name="querystring" value="1"<?php checked( $browsercache_querystring, true ); ?> /> <?php _e( 'Remove query strings from static resources', 'w3-total-cache' ); ?></label>
+                    <br /><span class="description"><?php _e( 'Resources with a "?" in the URL are not cached by some proxy caching servers.', 'w3-total-cache' ); ?></span>
+                </th>
+            </tr>
+            <tr>
                 <th><label for="browsercache_replace_exceptions"><?php Util_Ui::e_config_label( 'browsercache.replace.exceptions' ) ?></label></th>
                 <td>
                     <textarea id="browsercache_replace_exceptions"
@@ -206,6 +214,12 @@ Util_Ui::config_item( array(
                 <th colspan="2">
                     <?php $this->checkbox( 'browsercache.cssjs.replace' ) ?> <?php Util_Ui::e_config_label( 'browsercache.cssjs.replace' ) ?></label>
                     <br /><span class="description"><?php _e( 'Whenever settings are changed, a new query string will be generated and appended to objects allowing the new policy to be applied.', 'w3-total-cache' ); ?></span>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <?php $this->checkbox( 'browsercache.cssjs.querystring' ) ?> <?php _e( 'Remove query strings from static resources', 'w3-total-cache' ); ?></label>
+                    <br /><span class="description"><?php _e( 'Resources with a "?" in the URL are not cached by some proxy caching servers.', 'w3-total-cache' ); ?></span>
                 </th>
             </tr>
             <tr>
@@ -366,6 +380,12 @@ Util_Ui::config_item( array(
                 <th colspan="2">
                     <?php $this->checkbox( 'browsercache.other.replace' ) ?> <?php Util_Ui::e_config_label( 'browsercache.other.replace' ) ?></label>
                     <br /><span class="description"><?php _e( 'Whenever settings are changed, a new query string will be generated and appended to objects allowing the new policy to be applied.', 'w3-total-cache' ); ?></span>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <?php $this->checkbox( 'browsercache.other.querystring' ) ?> <?php _e( 'Remove query strings from static resources', 'w3-total-cache' ); ?></label>
+                    <br /><span class="description"><?php _e( 'Resources with a "?" in the URL are not cached by some proxy caching servers.', 'w3-total-cache' ); ?></span>
                 </th>
             </tr>
             <tr>
@@ -539,6 +559,33 @@ Util_Ui::config_item( array(
                         <option value="1"<?php selected( $value, '1' ); ?>><?php _e( 'Yes = Don\'t Enforce HPKP', 'w3-total-cache' ); ?></option>
                     </select>
                     <div id="browsercache_security_pkp_report_only_description"></div>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <?php $this->checkbox( 'browsercache.security.referrer.policy' ) ?> <?php Util_Ui::e_config_label( 'browsercache.security.referrer.policy' ) ?></label>
+                    <br /><span class="description"><?php _e( 'This header restricts the values of the referer header in outbound links.' ); ?></span>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <label for="browsercache_security_referrer_policy_directive"><?php Util_Ui::e_config_label( 'browsercache.security.referrer.policy.directive' ) ?></label>
+                </th>
+                <td>
+                    <select id="browsercache_security_referrer_policy_directive"
+                        <?php Util_Ui::sealing_disabled( 'browsercache.' ) ?>
+                        name="browsercache__security__referrer__policy__directive">
+                        <?php $value = $this->_config->get_string( 'browsercache.security.referrer.policy.directive' ); ?>
+                        <option value="0"<?php selected( $value, '0' ); ?>><?php _e( '""', 'w3-total-cache' ); ?></option>
+                        <option value="no-referrer"<?php selected( $value, 'no-referrer' ); ?>><?php _e( 'no-referrer', 'w3-total-cache' ); ?></option>
+                        <option value="no-referrer-when-downgrade"<?php selected( $value, 'no-referrer-when-downgrade' ); ?>><?php _e( 'no-referrer-when-downgrade', 'w3-total-cache' ); ?></option>
+                        <option value="same-origin"<?php selected( $value, 'same-origin' ); ?>><?php _e( 'same-origin', 'w3-total-cache' ); ?></option>
+                        <option value="origin"<?php selected( $value, 'origin' ); ?>><?php _e( 'origin', 'w3-total-cache' ); ?></option>
+                        <option value="strict-origin"<?php selected( $value, 'strict-origin' ); ?>><?php _e( 'strict-origin', 'w3-total-cache' ); ?></option>
+                        <option value="origin-when-cross-origin"<?php selected( $value, 'origin-when-cross-origin' ); ?>><?php _e( 'origin-when-cross-origin', 'w3-total-cache' ); ?></option>
+                        <option value="unsafe-url"<?php selected( $value, 'unsafe-url' ); ?>><?php _e( 'unsafe-url', 'w3-total-cache' ); ?></option>
+                    </select>
+                    <div id="browsercache_security_referrer_policy_directive_description"></div>
                 </td>
             </tr>
             <tr>

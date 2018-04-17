@@ -67,19 +67,20 @@ class CdnEngine_S3_Cf extends CdnEngine_S3 {
 			return false;
 		}
 
-        if ( empty( $this->_config['bucket_location'] ) ) {
-            $region = '';
-            $endpoint = 's3.amazonaws.com';
-        } else {
-            $region = $this->_config['bucket_location'];
-            $endpoint = 's3.dualstack.'.$region.'.amazonaws.com';
-        }
+		if ( empty( $this->_config['bucket_location'] ) ) {
+			$region = '';
+			$endpoint = 's3.amazonaws.com';
+		} else {
+			$region = $this->_config['bucket_location'];
+			$endpoint = 's3.dualstack.'.$region.'.amazonaws.com';
+		}
 
-        $this->_s3 = new \S3( $this->_config['key'], $this->_config['secret'], false, $endpoint, $region );
+		$this->_s3 = new \S3( $this->_config['key'], $this->_config['secret'],
+			false, $endpoint, $region );
 
-        if ( empty( $region ) ) {
-        	$this->_s3->setSignatureVersion( 'v2' );
-        }
+		if ( empty( $region ) ) {
+			$this->_s3->setSignatureVersion( 'v2' );
+		}
 
 		return true;
 	}

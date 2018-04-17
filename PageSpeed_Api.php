@@ -12,17 +12,13 @@ define( 'W3TC_PAGESPEED_API_URL', 'https://www.googleapis.com/pagespeedonline/v1
 class PageSpeed_Api {
 	/**
 	 * API Key
-	 *
-	 * @var string
 	 */
-	var $key = '';
+	private $key = '';
 
-    /**
-     * Referrer for key restricting
-     *
-     * @var string
-     */
-    var $key_restrict_referrer = '';
+	/**
+	 * Referrer for key restricting
+	 */
+	private $key_restrict_referrer = '';
 
 	/**
 	 * PHP5-style constructor
@@ -59,9 +55,11 @@ class PageSpeed_Api {
 				'key' => $this->key,
 			) );
 
-		$response = Util_Http::get( $request_url, array( 'timeout' => 120,
-													 'headers' => array( "Referer" => $this->key_restrict_referrer )
-													) );
+		$response = Util_Http::get( $request_url, array(
+				'timeout' => 120,
+				'headers' => array( 'Referer' => $this->key_restrict_referrer )
+			) );
+
 		if ( !is_wp_error( $response ) && $response['response']['code'] == 200 ) {
 			return $response['body'];
 		}

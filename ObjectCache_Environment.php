@@ -155,6 +155,9 @@ class ObjectCache_Environment {
 	 * @return boolean
 	 */
 	public function is_objectcache_old_add_in() {
+		if ( !$this->objectcache_installed() )
+			return false;
+
 		return ( ( $script_data = @file_get_contents( W3TC_ADDIN_FILE_OBJECT_CACHE ) )
 			&& ( ( strstr( $script_data, 'W3 Total Cache Object Cache' ) !== false ) ||
 				strstr( $script_data, 'w3_instance' ) !== false ) );
@@ -166,6 +169,9 @@ class ObjectCache_Environment {
 	 * @return boolean
 	 */
 	public function is_objectcache_add_in() {
+		if ( !$this->objectcache_installed() )
+			return false;
+
 		return ( ( $script_data = @file_get_contents( W3TC_ADDIN_FILE_OBJECT_CACHE ) )
 			&& strstr( $script_data, '//ObjectCache Version: 1.4' ) !== false );
 	}

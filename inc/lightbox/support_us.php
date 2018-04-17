@@ -64,9 +64,9 @@ echo Util_Ui::action_button(
 	"btn w3tc-size image btn-default palette-twitter",
 	true );
 echo Util_Ui::hidden(
-	__( 'tweeted' ),
-	__( 'tweeted' ),
-	'0' ) ?>
+ 	__( 'tweeted' ),
+ 	__( 'tweeted' ),
+ 	'0' ) ?>
                     </label>
                 </li>
                 <li>

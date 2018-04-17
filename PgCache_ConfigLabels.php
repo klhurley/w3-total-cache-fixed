@@ -50,12 +50,11 @@ class PgCache_ConfigLabels {
 				'pgcache.reject.categories' =>  __( 'Never cache pages associated with these categories:', 'w3-total-cache' ),
 				'pgcache.reject.tags' =>  __( 'Never cache pages that use these tags:', 'w3-total-cache' ),
 				'pgcache.reject.authors' =>  __( 'Never cache pages by these authors:', 'w3-total-cache' ),
-                'pgcache.reject.custom' =>  __( 'Never cache pages that use these custom fields:', 'w3-total-cache' ),
+				'pgcache.reject.custom' =>  __( 'Never cache pages that use these custom fields:', 'w3-total-cache' ),
 				'pgcache.accept.files' =>  __( 'Cache exception list:', 'w3-total-cache' ),
 				'pgcache.accept.uri' =>  __( 'Non-trailing slash pages:', 'w3-total-cache' ),
 				'pgcache.cache.headers' =>  __( 'Specify page headers:', 'w3-total-cache' ),
 				'pgcache.cache.nginx_handle_xml' => __( 'Handle <acronym title="Extensible Markup Language">XML</acronym> mime type', 'w3-total-cache' ),
-				'pgcache.cache.apache_handle_xml' => __( 'Handle <acronym title="Extensible Markup Language">XML</acronym> mime type', 'w3-total-cache' ),
 			) );
 	}
 }

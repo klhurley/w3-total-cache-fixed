@@ -151,6 +151,9 @@ class DbCache_Environment {
 	 * @return boolean
 	 */
 	public function db_check_old_add_in() {
+		if ( !$this->db_installed() )
+			return false;
+
 		return ( ( $script_data = @file_get_contents( W3TC_ADDIN_FILE_DB ) )
 			&& strstr( $script_data, 'w3_instance' ) !== false );
 	}
@@ -161,6 +164,9 @@ class DbCache_Environment {
 	 * @return boolean
 	 */
 	public function is_dbcache_add_in() {
+		if ( !$this->db_installed() )
+			return false;
+
 		return ( ( $script_data = @file_get_contents( W3TC_ADDIN_FILE_DB ) )
 			&& strstr( $script_data, 'DbCache_Wpdb' ) !== false );
 	}

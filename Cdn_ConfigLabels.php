@@ -7,6 +7,7 @@ class Cdn_ConfigLabels {
 				'cdn.enabled' => __( '<acronym title="Content Delivery Network">CDN</acronym>:', 'w3-total-cache' ),
 				'cdn.engine' => __( '<acronym title="Content Delivery Network">CDN</acronym> Type:', 'w3-total-cache' ),
 				'cdn.debug' => __( '<acronym title="Content Delivery Network">CDN</acronym>', 'w3-total-cache' ),
+				'cdnfsd.debug' => __( '<acronym title="Full Site Delivery">FSD</acronym> <acronym title="Content Delivery Network">CDN</acronym>', 'w3-total-cache' ),
 				'cdn.uploads.enable' => __( 'Host attachments', 'w3-total-cache' ),
 				'cdn.includes.enable' => __( 'Host wp-includes/ files', 'w3-total-cache' ),
 				'cdn.theme.enable' => __( 'Host theme files', 'w3-total-cache' ),

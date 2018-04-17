@@ -85,7 +85,7 @@ class S3
 	 * Default delimiter to be used, for example while getBucket().
 	 * @var string
 	 * @access public
-	 * @static 
+	 * @static
 	 */
 	public static $defDelimiter = null;
 
@@ -167,7 +167,7 @@ class S3
 	 * @static
 	 */
 	public static $sslKey = null;
-	
+
 	/**
 	 * SSL client certfificate
 	 *
@@ -176,7 +176,7 @@ class S3
 	 * @static
 	 */
 	public static $sslCert = null;
-	
+
 	/**
 	 * SSL CA cert (only required if you are having problems with your system CA cert)
 	 *
@@ -185,7 +185,7 @@ class S3
 	 * @static
 	 */
 	public static $sslCACert = null;
-	
+
 	/**
 	 * AWS Key Pair ID
 	 *
@@ -194,13 +194,13 @@ class S3
 	 * @static
 	 */
 	private static $__signingKeyPairId = null;
-	
+
 	/**
 	 * Key resource, freeSigningKey() must be called to clear it from memory
 	 *
 	 * @var bool
 	 * @access private
-	 * @static 
+	 * @static
 	 */
 	private static $__signingKeyResource = false;
 
@@ -270,7 +270,7 @@ class S3
 		if (empty($region)) {
 			if (preg_match("/s3[.-](?:website-|dualstack\.)?(.+)\.amazonaws\.com/i",self::$endpoint,$match) !== 0 && strtolower($match[1]) !== "external-1") {
 				$region = $match[1];
-			}		
+			}
 		}
 
 		return empty($region) ? 'us-east-1' : $region;
@@ -375,7 +375,7 @@ class S3
 			$rest = new S3Request('HEAD');
 			$rest = $rest->getResponse();
 			$awstime = $rest->headers['date'];
-			$systime = time();			
+			$systime = time();
 			$offset = $systime > $awstime ? -($systime - $awstime) : ($awstime - $systime);
 		}
 		self::$__timeOffset = $offset;
@@ -1780,7 +1780,7 @@ class S3
 			$origin->appendChild($dom->createElement('DNSName', $bucket));
 			$origin->appendChild($dom->createElement('OriginProtocolPolicy', 'http-only'));
 		}
-		
+
 		if ($originAccessIdentity !== null) $origin->appendChild($dom->createElement('OriginAccessIdentity', $originAccessIdentity));
 		$distributionConfig->appendChild($origin);
 
@@ -1837,7 +1837,7 @@ class S3
 		if (isset($node->S3Origin))
 		{
             $dist['type'] = self::ORIGIN_TYPE_S3;
-			
+
             if (isset($node->S3Origin->DNSName)) {
                 $dist['origin'] = (string)$node->S3Origin->DNSName;
             }
@@ -1973,36 +1973,36 @@ class S3
 	/**
 	* Generate the headers for AWS Signature V4
 	* @internal Used by S3Request::getResponse()
-	* @param array $aheaders amzHeaders 
+	* @param array $aheaders amzHeaders
 	* @param array $headers
-	* @param string $method 
+	* @param string $method
 	* @param string $uri
 	* @param string $data
 	* @param array $parameters
 	* @return array $headers
 	*/
 	public static function getSignatureV4($aHeaders, $headers, $method='GET', $uri='', $data = '', $parameters=array())
-	{		
+	{
 		$service = self::ORIGIN_TYPE_S3;
 		$region = S3::getRegion();
-		
+
 		$algorithm = 'AWS4-HMAC-SHA256';
 		$amzHeaders = array();
 		$amzRequests = array();
-		
+
 		$amzDate =  gmdate( 'Ymd\THis\Z' );
 		$amzDateStamp = gmdate( 'Ymd' );
 
-		// amz-date ISO8601 format ? for aws request		
+		// amz-date ISO8601 format ? for aws request
 		$amzHeaders['x-amz-date'] = $amzDate;
 
 		// CanonicalHeaders
 		foreach ( $headers as $k => $v ) {
 			$amzHeaders[ strtolower( $k ) ] = trim( $v );
-		} 
+		}
 		foreach ( $aHeaders as $k => $v ) {
 			$amzHeaders[ strtolower( $k ) ] = trim( $v );
-		} 
+		}
 		uksort( $amzHeaders, 'strcmp' );
 
 		// payload
@@ -2013,7 +2013,7 @@ class S3
 		// CanonicalRequests
 		$amzRequests[] = $method;
 		$amzRequests[] = ($uriQmPos === false ? $uri : substr($uri, 0, $uriQmPos));
-		$amzRequests[] = http_build_query($parameters);		
+		$amzRequests[] = http_build_query($parameters);
 		// add header as string to requests
 		foreach ( $amzHeaders as $k => $v ) {
 			$amzRequests[] = $k . ':' . $v;
@@ -2026,7 +2026,7 @@ class S3
 		$amzRequests[] = $payloadHash;
 		// request as string
 		$amzRequestStr = implode("\n", $amzRequests);
-		
+
 		// CredentialScope
 		$credentialScope = array();
 		$credentialScope[] = $amzDateStamp;
@@ -2049,7 +2049,7 @@ class S3
 		$kRegion = hash_hmac( 'sha256', $region, $kDate, true );
 		$kService = hash_hmac( 'sha256', $service, $kRegion, true );
 		$kSigning = hash_hmac( 'sha256', 'aws4_request', $kService, true );
-		
+
 		$signature = hash_hmac( 'sha256', $stringToSignStr, $kSigning );
 
 		$authorization = array(
@@ -2060,8 +2060,8 @@ class S3
 
 		$authorizationStr = $algorithm . ' ' . implode( ',', $authorization );
 
-		$resultHeaders = array( 
-			'X-AMZ-DATE' => $amzDate,			
+		$resultHeaders = array(
+			'X-AMZ-DATE' => $amzDate,
 			'Authorization' => $authorizationStr
 		);
 		if (!isset($aHeaders['x-amz-content-sha256'])) $resultHeaders['x-amz-content-sha256'] = $payloadHash;
@@ -2073,7 +2073,7 @@ class S3
 }
 
 /**
- * S3 Request class 
+ * S3 Request class
  *
  * @link http://undesigned.org.za/2007/10/22/amazon-s3-php-class
  * @version 0.5.0-dev
@@ -2087,7 +2087,7 @@ final class S3Request
 	 * @access private
 	 */
 	private $endpoint;
-	
+
 	/**
 	 * Verb
 	 *
@@ -2095,7 +2095,7 @@ final class S3Request
 	 * @access private
 	 */
 	private $verb;
-	
+
 	/**
 	 * S3 bucket name
 	 *
@@ -2103,7 +2103,7 @@ final class S3Request
 	 * @access private
 	 */
 	private $bucket;
-	
+
 	/**
 	 * Object URI
 	 *
@@ -2111,7 +2111,7 @@ final class S3Request
 	 * @access private
 	 */
 	private $uri;
-	
+
 	/**
 	 * Final object URI
 	 *
@@ -2119,7 +2119,7 @@ final class S3Request
 	 * @access private
 	 */
 	private $resource = '';
-	
+
 	/**
 	 * Additional request parameters
 	 *
@@ -2127,7 +2127,7 @@ final class S3Request
 	 * @access private
 	 */
 	private $parameters = array();
-	
+
 	/**
 	 * Amazon specific request headers
 	 *
@@ -2190,7 +2190,7 @@ final class S3Request
 	*/
 	function __construct($verb, $bucket = '', $uri = '', $endpoint = 's3.amazonaws.com')
 	{
-		
+
 		$this->endpoint = $endpoint;
 		$this->verb = $verb;
 		$this->bucket = $bucket;
@@ -2359,8 +2359,8 @@ final class S3Request
 				} else {
 					$amzHeaders = S3::getSignatureV4(
 						$this->amzHeaders,
-						$this->headers, 
-						$this->verb, 
+						$this->headers,
+						$this->verb,
 						$this->uri,
 						$this->data,
 						$this->parameters

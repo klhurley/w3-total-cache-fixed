@@ -341,11 +341,8 @@ $keys = array(
 		'type' => 'boolean',
 		'default' => false
 	),
+	// name backwards-compatible. in reality works for apache too
 	'pgcache.cache.nginx_handle_xml' => array(
-		'type' => 'boolean',
-		'default' => false
-	),
-	'pgcache.cache.apache_handle_xml' => array(
 		'type' => 'boolean',
 		'default' => false
 	),
@@ -434,24 +431,22 @@ $keys = array(
 			'index\.php'
 		)
 	),
-    'pgcache.reject.categories' => array(
-        'type' => 'array',
-        'default' => array()
-    ),
-    'pgcache.reject.tags' => array(
-        'type' => 'array',
-        'default' => array()
-    ),
-    'pgcache.reject.authors' => array(
-        'type' => 'array',
-        'default' => array()
-    ),
-    'pgcache.reject.custom' => array(
-        'type' => 'array',
-        'default' => array(
-            'w3tc=dontcache'
-        )
-    ),
+	'pgcache.reject.categories' => array(
+		'type' => 'array',
+		'default' => array()
+	),
+	'pgcache.reject.tags' => array(
+		'type' => 'array',
+		'default' => array()
+	),
+	'pgcache.reject.authors' => array(
+		'type' => 'array',
+		'default' => array()
+	),
+	'pgcache.reject.custom' => array(
+		'type' => 'array',
+		'default' => array()
+	),
 	'pgcache.reject.ua' => array(
 		'type' => 'array',
 		'default' => array()
@@ -553,6 +548,38 @@ $keys = array(
 	'pgcache.prime.post.enabled' => array(
 		'type' => 'boolean',
 		'default' => false
+	),
+	'pgcache.cookiegroups.enabled' => array(
+		'type' => 'boolean',
+		'default' => false
+	),
+	'pgcache.cookiegroups.groups' => array(
+		'type' => 'array',
+		'default' => array(
+			'mobile' => array(
+				'enabled' => false,
+				'cache' => true,
+				'cookies' => array(
+					'wptouch-pro-view=mobile',
+					'wptouch-pro-cache-state=mobile'
+				)
+			),
+			'loggedin' => array(
+				'enabled' => false,
+				'cache' => true,
+				'cookies' => array(
+					'wordpress_logged_in_.*'
+				)
+			),
+			'subscribers' => array(
+				'enabled' => false,
+				'cache' => true,
+				'cookies' => array(
+					'role=subscriber',
+					'role=member'
+				)
+			)
+		)
 	),
 
 	'stats.enabled' => array(
@@ -848,10 +875,10 @@ $keys = array(
 		'type' => 'boolean',
 		'default' => false
 	),
-    'minify.csstidy.options.remove_space_before_important' => array(
-        'type' => 'boolean',
-        'default' => false
-    ),
+	'minify.csstidy.options.remove_space_before_important' => array(
+		'type' => 'boolean',
+		'default' => false
+	),
 	'minify.csstidy.options.case_properties' => array(
 		'type' => 'integer',
 		'default' => 1
@@ -868,10 +895,10 @@ $keys = array(
 		'type' => 'integer',
 		'default' => 0
 	),
-    'minify.csstidy.options.discard_invalid_selectors' => array(
-        'type' => 'boolean',
-        'default' => false
-    ),
+	'minify.csstidy.options.discard_invalid_selectors' => array(
+		'type' => 'boolean',
+		'default' => false
+	),
 	'minify.csstidy.options.discard_invalid_properties' => array(
 		'type' => 'boolean',
 		'default' => false
@@ -967,7 +994,7 @@ $keys = array(
 	),
 	'cdn.theme.files' => array(
 		'type' => 'string',
-		'default' => '*.css;*.js;*.gif;*.png;*.jpg;*.ico;*.ttf;*.otf,*.woff,*.less'
+		'default' => '*.css;*.js;*.gif;*.png;*.jpg;*.ico;*.ttf;*.otf;*.woff;*.woff2;*.less'
 	),
 	'cdn.minify.enable' => array(
 		'type' => 'boolean',
@@ -1019,6 +1046,14 @@ $keys = array(
 	'cdn.canonical_header' => array(
 		'type' => 'boolean',
 		'default' => false
+	),
+	'cdn.admin.media_library' => array(
+ 		'type' => 'boolean',
+ 		'default' => false
+ 	),
+	'cdn.cors_header' => array(
+		'type' => 'boolean',
+		'default' => true
 	),
 
 	'cdn.ftp.host' => array(
@@ -1108,10 +1143,10 @@ $keys = array(
 		'type' => 'string',
 		'default' => ''
 	),
-    'cdn.s3.bucket.location' => array(
-        'type' => 'string',
-        'default' => 'us-east-1'
-    ),
+	'cdn.s3.bucket.location' => array(
+		'type' => 'string',
+		'default' => 'us-east-1'
+	),
 	'cdn.s3.cname' => array(
 		'type' => 'array',
 		'default' => array()
@@ -1138,10 +1173,10 @@ $keys = array(
 		'type' => 'string',
 		'default' => ''
 	),
-    'cdn.cf.bucket.location' => array(
-        'type' => 'string',
-        'default' => 'us-east-1'
-    ),
+	'cdn.cf.bucket.location' => array(
+		'type' => 'string',
+		'default' => 'us-east-1'
+	),
 	'cdn.cf.id' => array(
 		'type' => 'string',
 		'default' => ''
@@ -1258,34 +1293,6 @@ $keys = array(
 	'cdn.mirror.ssl' => array(
 		'type' => 'string',
 		'default' => 'auto'
-	),
-	'cdn.netdna.alias' => array(
-		'type' => 'string',
-		'default' => ''
-	),
-	'cdn.netdna.consumerkey' => array(
-		'type' => 'string',
-		'default' => ''
-	),
-	'cdn.netdna.consumersecret' => array(
-		'type' => 'string',
-		'default' => ''
-	),
-	'cdn.netdna.authorization_key' => array(
-		'type' => 'string',
-		'default' => ''
-	),
-	'cdn.netdna.domain' => array(
-		'type' => 'array',
-		'default' => array()
-	),
-	'cdn.netdna.ssl' => array(
-		'type' => 'string',
-		'default' => 'auto'
-	),
-	'cdn.netdna.zone_id' => array(
-		'type' => 'integer',
-		'default' => 0
 	),
 	'cdn.maxcdn.authorization_key' => array(
 		'type' => 'string',
@@ -1415,10 +1422,19 @@ $keys = array(
 		'type' => 'boolean',
 		'default' => false
 	),
-	'cdn.admin.media_library' => array(
+	'cdnfsd.enabled' => array(
 		'type' => 'boolean',
 		'default' => false
 	),
+	'cdnfsd.engine' => array(
+		'type' => 'string',
+		'default' => ''
+	),
+	'cdnfsd.debug' => array(
+		'type' => 'boolean',
+		'default' => false
+	),
+
 	'varnish.configuration_overloaded' => array(
 		'type' => 'boolean',
 		'default' => false
@@ -1496,6 +1512,10 @@ $keys = array(
 		'default' => false
 	),
 	'browsercache.cssjs.replace' => array(
+		'type' => 'boolean',
+		'default' => false
+	),
+	'browsercache.cssjs.querystring' => array(
 		'type' => 'boolean',
 		'default' => false
 	),
@@ -1639,6 +1659,14 @@ $keys = array(
         'type' => 'string',
         'default' => '0'
     ),
+    'browsercache.security.referrer.policy' => array(
+        'type' => 'boolean',
+        'default' => 'false'
+    ),
+    'browsercache.security.referrer.policy.directive' => array(
+        'type' => 'string',
+        'default' => '0'
+    ),
     'browsercache.security.csp' => array(
         'type' => 'boolean',
         'default' => false
@@ -1700,6 +1728,10 @@ $keys = array(
         'default' => '\'none\''
     ),
 	'browsercache.other.replace' => array(
+		'type' => 'boolean',
+		'default' => false
+	),
+	'browsercache.other.querystring' => array(
 		'type' => 'boolean',
 		'default' => false
 	),
@@ -1886,10 +1918,6 @@ $keys = array(
 	),
 
 
-	'common.edge' => array(
-		'type' => 'boolean',
-		'default' => false
-	),
 	'common.support' => array(
 		'type' => 'string',
 		'default' => ''
@@ -1926,10 +1954,10 @@ $keys = array(
 		'type' => 'string',
 		'default' => ''
 	),
-    'widget.pagespeed.key.restrict.referrer' => array(
-        'type' => 'string',
-        'default' => ''
-    ),
+	'widget.pagespeed.key.restrict.referrer' => array(
+		'type' => 'string',
+		'default' => ''
+	),
 	'widget.pagespeed.show_in_admin_bar' => array(
 		'type' => 'boolean',
 		'default' => false
@@ -1996,7 +2024,8 @@ $keys = array(
 		'type' => 'array',
 		'default' => array(
 			'newrelic' => 'w3-total-cache/Extension_NewRelic_Plugin.php',
-			'fragmentcache' => 'w3-total-cache/Extension_FragmentCache_Plugin.php'
+			'fragmentcache' => 'w3-total-cache/Extension_FragmentCache_Plugin.php',
+			'swarmify' => 'w3-total-cache/Extension_Swarmify_Plugin.php'
 		)
 	),
 	'extensions.active_frontend' => array(
